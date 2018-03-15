@@ -43,24 +43,28 @@
 			console.log('Saving image to folder...');
 			console.log(data)
 
-			var random_image = data.webImage.url;
-			var	random_title = data.title;
-			// console.log(random_image)
+			var random_image = data.webImage.url; // the image and the title are not matched
+			var	random_title = data.longTitle; // title is one bot post ahead
+			console.log(random_image)
+			console.log(random_title)
 
-			var stream = fs.createWriteStream('images/downloaded.jpg');
+			var fileName = 'downloaded.jpg';
+			var filePath = path.join(__dirname, './' + fileName)
+			
+			var stream = fs.createWriteStream(filePath);
+			request(random_image).pipe(stream).on('close', function(err, data, res){
+				if (err){
+					console.log('line 56 >>' + err)
+				} else {
+					console.log('Saved to local folder');
+				}
+			});			
 
-			stream.on('close', function(){
-				console.log('done');
-			});
-			var r = request(random_image).pipe(stream);
-
-			var b64content = fs.readFileSync('images/downloaded.jpg', { encoding: 'base64' });
-
-			console.log('Uploading an image...');
+			var b64content = fs.readFileSync(filePath, { encoding: 'base64' });
 
 			T.post('media/upload', { media_data: b64content }, function(err, data, res){
 				if (err){
-					console.log(err)
+					console.log('things go wrong here >>' + err)
 				} else {
 					console.log('ok');
 					var mediaIdStr = data.media_id_string
