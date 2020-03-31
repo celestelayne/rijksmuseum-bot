@@ -1,5 +1,17 @@
 ## Rijksmuseum Twitter Bot
 
-### [Twitter Account](https://twitter.com/rijksmuseum_bot)
+This is a twitter bot that tweets a random item from the Rijksmuseum's open access collection.
+
+```
+module.exports = {
+  api_key:'0AuupM7H',
+  consumer_key:         'YOUR_AUTH_STUFF_HERE',
+  consumer_secret:      'YOUR_AUTH_STUFF_HERE',
+  access_token:         'YOUR_AUTH_STUFF_HERE',
+  access_token_secret:  'YOUR_AUTH_STUFF_HERE'
+}
+```
+
+#### [Twitter Account](https://twitter.com/rijksmuseum_bot)
 **************
 ![](https://github.com/celestelayne/rijksmuseum-bot/blob/master/rijksmuseum-twitter-bot.png "Rijksmuseum Twitter Bot")
