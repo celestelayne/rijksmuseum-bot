@@ -4,7 +4,6 @@ This is a twitter bot that tweets a random item from the Rijksmuseum's open acce
 
 ```
 module.exports = {
-  api_key:'0AuupM7H',
   consumer_key:         'YOUR_AUTH_STUFF_HERE',
   consumer_secret:      'YOUR_AUTH_STUFF_HERE',
   access_token:         'YOUR_AUTH_STUFF_HERE',
