@@ -109,4 +109,4 @@
   tweeter();
 
   // Once every four hours
-  setInterval(tweeter, 4*60*60*1000)
+  setInterval(tweeter, 1*60*60*1000)
