@@ -43,7 +43,7 @@
             const imgTitle = item.title;
             const objectNumber = item.objectNumber;
 
-            const fileName = `./images/${objectNumber}.jpg`;
+            const fileName = `${objectNumber}.jpg`;
 
             // save image to /images folder
             request(artImage)
@@ -56,16 +56,21 @@
                 }
               })
 
-              // Read the file made
-              const filePath = path.join(__dirname, fileName)
-              // console.log(filePath)
-              const b64content = fs.readFileSync(filePath, { encoding: 'base64' });
+              // Read the content from the images folder
+              const filePath = path.join(__dirname, `images/${fileName}`)
 
+              console.log(filePath)
+
+              const b64content = fs.readFileSync(`images/${fileName}`, { encoding: 'base64' });
+
+              console.log('uploading the image')
+
+              // upload image to Twitter
               T.post('media/upload', { media_data: b64content }, function(err, data, res){
-                if(error){
-                  console.error('things go wrong here >>' + error)
+                if(err){
+                  console.error('things go wrong here >>' + err)
                 } else {
-                  console.log('ok');
+                  console.log('image uploaded, now tweeting: ' + data);
                   const mediaIdStr = data.media_id_string
                   const altText = imgTitle;
                   const meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
@@ -73,8 +78,21 @@
                   T.post('media/metadata/create', meta_params, function (err, data, response) {
                     const params = { status: imgTitle, media_ids: [mediaIdStr] }
 
+                    // post a tweet with the image
                     T.post('statuses/update', params, function (err, data, response) {
-                      console.log(data)
+                      if(err){
+                        console.error(err)
+                      } else {
+                        console.log('posted an image')
+
+                        fs.unlink(filePath, function(err){
+                          if(err){
+                            console.log(err + ' unable to delete image: ' + filePath)
+                          } else {
+                            console.log('image: ' + filePath + ' was deleted.')
+                          }
+                        })
+                      }
                     })
                   })
                 }
