@@ -1,6 +1,6 @@
 ## Rijksmuseum Twitter Bot
 
-This is a twitter bot that tweets a random item from the Rijksmuseum's open access collection.
+This is a twitter bot that tweets a random item from the Rijksmuseum's open access [collection](https://www.rijksmuseum.nl/en/data).
 
 ```
 module.exports = {
