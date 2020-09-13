@@ -12,7 +12,6 @@
 	const Twit = require('twit');
 
 	// Pull in all Twitter & Rijksmuseum account info
-	// const config = require('./config');
   const config = require(path.join(__dirname, 'config.js'));
 
 	// Make a Twit object for connection to the API
@@ -58,9 +57,6 @@
 
               // Read the content from the images folder
               const filePath = path.join(__dirname, `images/${fileName}`)
-
-              console.log(filePath)
-
               const b64content = fs.readFileSync(`images/${fileName}`, { encoding: 'base64' });
 
               console.log('uploading the image')
@@ -70,7 +66,7 @@
                 if(err){
                   console.error('things go wrong here >>' + err)
                 } else {
-                  console.log('image uploaded, now tweeting: ' + data);
+                  // console.log('image uploaded, now tweeting: ' + data);
                   const mediaIdStr = data.media_id_string
                   const altText = imgTitle;
                   const meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
@@ -113,5 +109,4 @@
   tweeter();
 
   // Once every four hours
-  // setInterval(tweeter, 4*60*60*1000)
-  // setInterval(tweeter, 15*60*1000)
+  setInterval(tweeter, 4*60*60*1000)
